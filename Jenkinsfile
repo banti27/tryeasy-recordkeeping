@@ -15,9 +15,7 @@ pipeline {
         }
         stage('BUILD IMAGE') {
             steps {
-                script{
-                    app = docker.build("tryeasy-recordkeeping-img")
-                }
+                sh 'docker build -t tryeasy-recordkeeping:latest .'
             }
         }
 
