@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/fragment/custom_header}">
+</head>
+
+<body>
+
+<div th:insert="~{/fragment/header :: top-menu}"></div>
+
+<div class="container mt-5">
+    <div class="alert alert-success" role="alert" th:if="${participantCreationResponse}">
+        Participant saved successfully
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <form action="#" th:action="@{/participants}" method="post" th:object="${participantCreationRequest}">
+        <div class="mb-3">
+            <label for="participantName" class="form-label">PARTICIPANT NAME</label>
+            <input type="text" class="form-control" id="participantName" th:field="*{participantName}">
+        </div>
+        <div class="mb-3">
+            <label for="orgName" class="form-label">ORGANIZATION NAME</label>
+            <input type="text" class="form-control" id="orgName" th:field="*{orgName}">
+        </div>
+        <div class="mb-3">
+            <label for="gender" class="form-label">GENDER</label>
+            <input type="text" class="form-control" id="gender" th:field="*{gender}">
+        </div>
+        <button type="submit" class="btn btn-primary">SAVE PARTICIPANT</button>
+    </form>
+</div>
+
+</body>
+</html>

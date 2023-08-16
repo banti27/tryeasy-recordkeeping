@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{/fragment/custom_header}">
+</head>
+<body>
+<div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+
+    <div class="card border-dark w-25">
+        <div class="card-header">Sign Up Form</div>
+        <div class="card-body text-dark">
+            <h5 class="card-title">SIGN UP</h5>
+            <form action="#" th:action="@{/register/users}" method="post" th:object="${userRegReq}">
+                <div class="mb-3">
+                    <label for="email" class="form-label">EMAIL</label>
+                    <input type="text" class="form-control" id="email" th:field="*{email}">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">PASSWORD</label>
+                    <input type="password" class="form-control" id="password" th:field="*{password}">
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    SIGN UP
+                </button>
+                <a class="nav-link" aria-current="page" href="#" th:href="@{/auth/users}">Log In</a>
+            </form>
+
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

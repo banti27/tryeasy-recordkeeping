@@ -1,41 +1,65 @@
 package in.tryeasy.recordkeeping.controller;
 
-import in.tryeasy.recordkeeping.model.EmployeeCreationRequest;
-import in.tryeasy.recordkeeping.model.EmployeeCreationResponse;
+
+import in.tryeasy.recordkeeping.model.employee.EmployeeCreationRequest;
+import in.tryeasy.recordkeeping.model.employee.EmployeeDashboardDetailsRequest;
 import in.tryeasy.recordkeeping.service.EmployeeService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-@CrossOrigin(origins = "http://localhost:4200")
-@RestController
+import java.util.stream.Collectors;
+
+@Controller
+@RequiredArgsConstructor
 public class EmployeeController {
-
 
     private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
+
+    @GetMapping(path = "/employees")
+    public String getEmployeeRegisterPage(Model model) {
+        addDashboardDetails(model);
+        return "employee/employees";
     }
 
-    @PostMapping(path = "/api/employee")
-    public ResponseEntity<EmployeeCreationResponse> saveEmployee(@RequestBody EmployeeCreationRequest employeeCreationRequest) {
+    @PostMapping(path = "/employees")
+    public String saveEmployee(Model model, EmployeeCreationRequest employeeCreationRequest) {
+        final var employeeCreationResponse = this.employeeService
+                .saveEmployee(employeeCreationRequest);
 
-
-        // call EmployeeService ===> employeeCreationRequest
-        final var response = this.employeeService.saveEmployee(employeeCreationRequest);
-
-
-        // creating response entity
-        // setting Http Status Code
-        // setting Http Response Body
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(response);
+        addDashboardDetails(model);
+        model.addAttribute("employeeCreationResponse", employeeCreationResponse);
+        return "employee/employees";
     }
 
 
+    @PostMapping(path = "/employees/upload")
+    public String uploadEmployee(Model model, @RequestParam("empUploadFile") MultipartFile file) {
+        final var response = this.employeeService.uploadEmployee(file);
+        model.addAttribute("empUploadResponse", response);
+        addDashboardDetails(model);
+        return "employee/employees";
+    }
+
+    private void addDashboardDetails(Model model) {
+        // Fetch all the employee details from database
+        final var empDetailsPageRequest = PageRequest.of(0, 20);
+        final var employeeDashboardDetailsResponse = this.employeeService
+                .getAllEmployee(EmployeeDashboardDetailsRequest
+                        .builder()
+                        .pageRequest(empDetailsPageRequest)
+                        .build());
+        model.addAttribute("empPageInfo", employeeDashboardDetailsResponse.getEmployeeDashboardDetails());
+        model.addAttribute("empDetails", employeeDashboardDetailsResponse
+                .getEmployeeDashboardDetails()
+                .get()
+                .collect(Collectors.toUnmodifiableList()));
+        model.addAttribute("employeeCreationRequest", EmployeeCreationRequest.builder().build());
+    }
 }

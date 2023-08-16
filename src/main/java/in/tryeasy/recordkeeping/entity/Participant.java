@@ -12,15 +12,16 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "TRYEASY_EMPLOYEE")
-public class Employee {
+@Table(name = "TRYEASY_PARTICIPANT")
+public class Participant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID employeeId;
+    private UUID participantId;
 
-    private String firstName;
-    private String lastName;
+    private String orgName;
+
+    private String participantName;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;

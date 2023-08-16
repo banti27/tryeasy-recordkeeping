@@ -1,4 +1,4 @@
-package in.tryeasy.recordkeeping.model;
+package in.tryeasy.recordkeeping.model.employee;
 
 import java.util.UUID;
 

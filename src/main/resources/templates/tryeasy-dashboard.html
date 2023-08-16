@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/fragment/custom_header}">
+</head>
+<body>
+
+<div th:insert="~{/fragment/header :: top-menu}"></div>
+
+
+<div class="container">
+    <div class="card" style="width: 100%;">
+        <h5 class="card-title">Employees</h5>
+        <div class="card-body">
+            <table class="table">
+                <caption>List of employees</caption>
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Gender</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="emp,iterStat : ${empDetails}">
+                    <th th:text="${iterStat.count}">ROW_NUMBER</th>
+                    <td th:text="${emp.firstName}">FIRST_NAME</td>
+                    <td th:text="${emp.lastName}">LAST_NAME</td>
+                    <td th:text="${emp.gender}">GENDER</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="card" style="width: 100%;">
+        <h5 class="card-title">Participants</h5>
+        <div class="card-body">
+            <table class="table">
+                <caption>List of participants</caption>
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Participant Name</th>
+                    <th scope="col">Organization Name</th>
+                    <th scope="col">Gender</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="participants,iterStat : ${participantDetails}">
+                    <th th:text="${iterStat.count}">ROW_NUMBER</th>
+                    <td th:text="${participants.participantName}">PARTICIPANT_NAME</td>
+                    <td th:text="${participants.orgName}">ORG_NAME</td>
+                    <td th:text="${participants.gender}">GENDER</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- <div class="card" style="width: 100%;">
+         <h5 class="card-title">Organizations</h5>
+         <div class="card-body">
+             <table class="table">
+                 <caption>List of organizations</caption>
+                 <thead>
+                 <tr>
+                     <th scope="col">#</th>
+                     <th scope="col">First Name</th>
+                     <th scope="col">Last Name</th>
+                     <th scope="col">Gender</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 <tr th:each="emp,iterStat : ${empDetails}">
+                     <th th:text="${iterStat.count}">ROW_NUMBER</th>
+                     <td th:text="${emp.firstName}">FIRST_NAME</td>
+                     <td th:text="${emp.lastName}">LAST_NAME</td>
+                     <td th:text="${emp.gender}">GENDER</td>
+                 </tr>
+             </table>
+         </div>
+     </div>
+     <div class="card" style="width: 100%;">
+         <h5 class="card-title">Accounts</h5>
+         <div class="card-body">
+             <table class="table">
+                 <caption>List of accounts</caption>
+                 <thead>
+                 <tr>
+                     <th scope="col">#</th>
+                     <th scope="col">First Name</th>
+                     <th scope="col">Last Name</th>
+                     <th scope="col">Gender</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 <tr th:each="emp,iterStat : ${empDetails}">
+                     <th th:text="${iterStat.count}">ROW_NUMBER</th>
+                     <td th:text="${emp.firstName}">FIRST_NAME</td>
+                     <td th:text="${emp.lastName}">LAST_NAME</td>
+                     <td th:text="${emp.gender}">GENDER</td>
+                 </tr>
+             </table>
+         </div>
+     </div>-->
+</div>
+
+
+</body>
+</html>

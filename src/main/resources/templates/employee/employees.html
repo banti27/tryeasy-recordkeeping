@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{/fragment/custom_header}">
+</head>
+<body>
+<div th:insert="~{/fragment/header :: top-menu}"></div>
+
+<div class="container-fluid">
+
+
+    <div class="row m-2">
+        <div class="col-2"></div>
+        <div class="col">
+            <div class="card border-light" style="width: 100%;">
+                <div class="card-header">
+                    <button type="button"
+                            class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                        Save Employee
+                    </button>
+                    <button type="button"
+                            class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#uploadModal">
+                        Upload Employee
+                    </button>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Employees</h5>
+                    <table class="table">
+                        <caption>Total <span th:text="${empDetails.size()}">COUNT</span></caption>
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Gender</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="emp,iterStat : ${empDetails}">
+                            <th th:text="${iterStat.count}">ROW_NUMBER</th>
+                            <td th:text="${emp.firstName}">FIRST_NAME</td>
+                            <td th:text="${emp.lastName}">LAST_NAME</td>
+                            <td th:text="${emp.gender}">GENDER</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+    <!--START: Save Employee Dialog -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Save Employee</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="#" th:action="@{/employees}" method="post" th:object="${employeeCreationRequest}">
+                    <div class="modal-body">
+                        <div class="alert alert-success" role="alert" th:if="${employeeCreationResponse}">
+                            Employee created successfully
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">FIRST NAME</label>
+                            <input type="text" class="form-control" id="firstName" th:field="*{firstName}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label">LAST NAME</label>
+                            <input type="text" class="form-control" id="lastName" th:field="*{lastName}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">GENDER</label>
+                            <input type="text" class="form-control" id="gender" th:field="*{gender}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">SAVE</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--END: Save Employee Dialog -->
+
+
+    <!--START: Upload Employee Dialog -->
+    <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Upload Employee</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="#" th:action="@{/employees/upload}" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="alert alert-success" role="alert" th:if="${empUploadResponse}">
+                            Employee uploaded successfully
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="empUploadFile" class="form-label">Upload File</label>
+                            <input class="form-control" type="file" id="empUploadFile" name="empUploadFile">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">UPLOAD</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--END: Upload Employee Dialog -->
+
+
+</div>
+
+</body>
+</html>

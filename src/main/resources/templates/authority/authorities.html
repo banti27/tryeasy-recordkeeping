@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{/fragment/custom_header}">
+</head>
+<body>
+<div th:insert="~{/fragment/header :: top-menu}"></div>
+
+<div class="container m-5">
+    <div class="alert alert-success" role="alert" th:if="${authorityUploadResponse}">
+        Authority uploaded successfully
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <form action="#" th:action="@{/authorities/upload}" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Upload File</label>
+            <input class="form-control" type="file" id="formFile" name="file">
+        </div>
+        <button type="submit" class="btn btn-primary">UPLOAD</button>
+    </form>
+</div>
+
+
+<div class="container m-5">
+    <div class="alert alert-success" role="alert" th:if="${authorityCreateResponse}">
+        Authority created successfully
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <form action="#" th:action="@{/authorities}" method="post" th:object="${authorityCreateRequest}">
+        <div class="mb-3">
+            <label for="authorityName" class="form-label">AUTHORITY NAME</label>
+            <input type="text" class="form-control" id="authorityName" th:field="*{authorityName}">
+        </div>
+        <button type="submit" class="btn btn-primary">SAVE</button>
+    </form>
+</div>
+
+</body>
+</html>

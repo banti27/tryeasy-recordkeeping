@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/fragment/custom_header}">
+</head>
+<body>
+<div th:insert="~{/fragment/header :: top-menu}"></div>
+
+<div class="container mt-5">
+    <form action="#" method="post">
+        <div class="mb-3">
+            <label for="cardNumber" class="form-label">CARD DETAILS</label>
+            <input type="text" class="form-control" id="cardNumber">
+        </div>
+        <div class="mb-3">
+            <label for="cardHolderName" class="form-label">NAME ON CARD</label>
+            <input type="text" class="form-control" id="cardHolderName">
+        </div>
+        <div class="mb-3">
+            <label for="amount" class="form-label">AMOUNT</label>
+            <input type="text" class="form-control" id="amount">
+        </div>
+        <button type="submit" class="btn btn-primary">PAY</button>
+    </form>
+</div>
+
+</body>
+</html>
