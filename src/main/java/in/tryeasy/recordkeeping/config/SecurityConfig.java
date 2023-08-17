@@ -16,7 +16,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
-        return http.authorizeHttpRequests(httpRequest ->
+        return http.cors(httpSecurity -> httpSecurity.disable())
+                .csrf(httpSecurity -> httpSecurity.disable())
+                .authorizeHttpRequests(httpRequest ->
                         httpRequest
                                 .requestMatchers(
                                         mvc.pattern("/auth/users"),
@@ -26,7 +28,7 @@ public class SecurityConfig {
                                 .anyRequest()
                                 .authenticated()
                 )
-                .logout(HttpSecurity -> HttpSecurity.logoutSuccessUrl("/auth/users"))
+                .logout(httpSecurity -> httpSecurity.logoutSuccessUrl("/auth/users"))
                 .formLogin(form -> form
                         .loginPage("/auth/users")
                 ).build();

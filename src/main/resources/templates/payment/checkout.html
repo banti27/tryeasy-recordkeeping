@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/fragment/custom_header}">
+</head>
+<body>
+<form action='/charge' method='POST' id='checkout-form'>
+    <script src='https://checkout.stripe.com/checkout.js'
+            class='stripe-button'
+            th:attr='data-key=${stripePublicKey}, data-amount=${amount}, data-currency=${currency}'
+            data-name='TryEasy'
+            data-description='TryEasy Service checkout'
+            data-locale='auto'
+            data-zip-code='false'>
+    </script>
+</form>
+</body>
+</html>

@@ -41,6 +41,7 @@ dependencies {
 
 	//EXTERNAL LIBRARY
 	implementation 'com.opencsv:opencsv:5.8'
+	implementation 'com.stripe:stripe-java:22.31.0'
 
 	//DEV TOOLS
 	compileOnly 'org.projectlombok:lombok'
